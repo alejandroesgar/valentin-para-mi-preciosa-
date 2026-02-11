@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valentín 💘</title>
+  <style>
+    :root{
+      --pink:#ff4d8d;
+      --pink2:#ff7bb4;
+      --dark:#120015;
+      --card: rgba(255,255,255,.10);
+      --border: rgba(255,255,255,.22);
+      --txt: rgba(255,255,255,.95);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--txt);
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 700px at 20% 20%, rgba(255,77,141,.35), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(255,123,180,.30), transparent 60%),
+        radial-gradient(900px 800px at 50% 90%, rgba(255,255,255,.08), transparent 55%),
+        linear-gradient(160deg, #23001f, #110016 45%, #07000a);
+    }
+
+    /* Glitter */
+    .sparkles{
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,.6) 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,.5) 50%, transparent 51%),
+        radial-gradient(1.8px 1.8px at 70% 30%, rgba(255,255,255,.45) 50%, transparent 51%),
+        radial-gradient(1.2px 1.2px at 90% 60%, rgba(255,255,255,.4) 50%, transparent 51%),
+        radial-gradient(1.6px 1.6px at 25% 55%, rgba(255,255,255,.35) 50%, transparent 51%);
+      opacity:.55;
+      filter: blur(.2px);
+      animation: twinkle 4s infinite ease-in-out;
+      pointer-events:none;
+    }
+    @keyframes twinkle{ 0%,100%{opacity:.45} 50%{opacity:.8} }
+
+    /* Center card */
+    .wrap{
+      position:relative;
+      height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+    .card{
+      width:min(640px, 92vw);
+      backdrop-filter: blur(10px);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 34px 26px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      font-weight:600;
+      letter-spacing:.2px;
+      margin-bottom:14px;
+    }
+    .tag .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: linear-gradient(135deg, var(--pink), var(--pink2));
+      box-shadow: 0 0 18px rgba(255,77,141,.9);
+    }
+
+    h1{
+      margin: 10px 0 8px;
+      font-size: clamp(34px, 4.4vw, 54px);
+      line-height:1.08;
+      text-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .subtitle{
+      margin: 10px auto 22px;
+      max-width: 46ch;
+      font-size: clamp(16px, 2vw, 18px);
+      opacity:.92;
+    }
+
+    .btns{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+      margin-top: 18px;
+    }
+    button{
+      border:0;
+      cursor:pointer;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight:800;
+      font-size: 16px;
+      transition: transform .12s ease, filter .12s ease;
+      box-shadow: 0 18px 40px rgba(0,0,0,.25);
+    }
+    button:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+    .yes{
+      color:#1a0012;
+      background: linear-gradient(135deg, var(--pink), var(--pink2));
+    }
+    .no{
+      color:rgba(255,255,255,.92);
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+    }
+
+    .result{
+      margin-top:18px;
+      min-height: 30px;
+      font-size: 18px;
+      font-weight:700;
+      opacity:.98;
+    }
+
+    /* Hearts */
+    .hearts{ position:absolute; inset:0; pointer-events:none; }
+    .heart{
+      position:absolute;
+      width: 14px;
+      height: 14px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--pink), var(--pink2));
+      opacity:.85;
+      filter: drop-shadow(0 10px 16px rgba(255,77,141,.18));
+      animation: floatUp linear infinite;
+    }
+    .heart::before,.heart::after{
+      content:"";
+      position:absolute;
+      width: 14px;
+      height: 14px;
+      border-radius:50%;
+      background: inherit;
+    }
+    .heart::before{ left:-7px; top:0; }
+    .heart::after{ top:-7px; left:0; }
+
+    @keyframes floatUp{
+      from{ transform: translateY(110vh) rotate(45deg) scale(1); opacity:0; }
+      10%{ opacity:.9; }
+      to{ transform: translateY(-18vh) rotate(45deg) scale(1.15); opacity:0; }
+    }
+
+    /* Music overlay (shown only if autoplay w/ sound is blocked) */
+    .musicOverlay{
+      position: fixed;
+      inset: 0;
+      display:none;
+      place-items:center;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(8px);
+      z-index: 50;
+      padding: 24px;
+    }
+    .musicBox{
+      width:min(520px, 92vw);
+      background: rgba(20,0,24,.75);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 22px;
+      padding: 22px 18px;
+      text-align:center;
+      box-shadow: var(--shadow);
+    }
+    .musicBox h2{ margin: 6px 0 6px; }
+    .musicBox p{ margin: 0 0 14px; opacity:.92; }
+    .musicBox .start{
+      width: 100%;
+      max-width: 320px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight:900;
+      background: linear-gradient(135deg, var(--pink), var(--pink2));
+      color:#140012;
+    }
+
+    /* Keep iframe hidden */
+    #playerWrap{
+      position:absolute;
+      width:1px;height:1px;
+      overflow:hidden;
+      left:-9999px; top:-9999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="tag"><span class="dot"></span> Para ti 💝</div>
+      <h1>¿Quieres ser mi Valentín?</h1>
+      <div class="subtitle">
+        Prometo cuidarte bonito, hacerte reír y que esta canción te recuerde lo mucho que me importas. 💘
+      </div>
+
+      <div class="btns">
+        <button class="yes" id="yesBtn">Sí 💖</button>
+        <button class="no" id="noBtn">No 🙈</button>
+      </div>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+  </div>
+
+  <!-- Hidden YouTube Player -->
+  <div id="playerWrap">
+    <div id="player"></div>
+  </div>
+
+  <!-- Overlay only if autoplay w/ sound is blocked -->
+  <div class="musicOverlay" id="musicOverlay">
+    <div class="musicBox">
+      <h2>Activa la música 🎶</h2>
+      <p>Tu navegador bloqueó el audio automático. Toca para reproducir.</p>
+      <button class="start" id="startMusic">Reproducir canción 💗</button>
+    </div>
+  </div>
+
+  <script>
+    // ===== Hearts generator =====
+    const hearts = document.getElementById('hearts');
+    const HEARTS = 22;
+
+    function rand(min,max){ return Math.random()*(max-min)+min; }
+    function makeHearts(){
+      for(let i=0;i<HEARTS;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        const left = rand(0,100);
+        const dur = rand(6,12);
+        const delay = rand(0,6);
+        const size = rand(10,18);
+
+        h.style.left = left + 'vw';
+        h.style.animationDuration = dur + 's';
+        h.style.animationDelay = delay + 's';
+        h.style.width = size + 'px';
+        h.style.height = size + 'px';
+        hearts.appendChild(h);
+      }
+    }
+    makeHearts();
+
+    // ===== Buttons =====
+    const result = document.getElementById('result');
+    document.getElementById('yesBtn').addEventListener('click', ()=>{
+      result.textContent = "¡SÍ! 💘🥰 Ya eres mi Valentín. 💖";
+      burst();
+    });
+    document.getElementById('noBtn').addEventListener('click', ()=>{
+      result.textContent = "No se vale 😭… intenta otra vez 🙈💞";
+      burst();
+    });
+
+    function burst(){
+      // quick extra hearts
+      for(let i=0;i<10;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        const left = rand(10,90);
+        const dur = rand(3.5,6);
+        const size = rand(12,22);
+        h.style.left = left + 'vw';
+        h.style.animationDuration = dur + 's';
+        h.style.width = size + 'px';
+        h.style.height = size + 'px';
+        hearts.appendChild(h);
+        setTimeout(()=>h.remove(), dur*1000);
+      }
+    }
+
+    // ===== YouTube Music (tries autoplay with sound, fallback to tap) =====
+    const YT_ID = "-BjZmE2gtdo";
+    const overlay = document.getElementById('musicOverlay');
+    const startBtn = document.getElementById('startMusic');
+    let player;
+
+    // Load IFrame API
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(tag);
+
+    window.onYouTubeIframeAPIReady = function () {
+      player = new YT.Player('player', {
+        height: '0',
+        width: '0',
+        videoId: YT_ID,
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          playsinline: 1,
+          rel: 0,
+          loop: 1,
+          playlist: YT_ID
+        },
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady() {
+      // Try to play with sound
+      tryPlaySound();
+    }
+
+    function tryPlaySound(){
+      // Start muted first (some browsers allow autoplay only muted), then unmute:
+      // We'll attempt unmute and play; if it fails, show overlay.
+      try {
+        player.mute();
+        player.playVideo();
+
+        setTimeout(() => {
+          player.unMute();
+          player.setVolume(80);
+          player.playVideo();
+
+          // If still not playing after a moment, show overlay
+          setTimeout(() => {
+            const state = player.getPlayerState?.();
+            // 1 = playing
+            if(state !== 1){
+              overlay.style.display = "grid";
+            }
+          }, 900);
+
+        }, 600);
+
+      } catch(e){
+        overlay.style.display = "grid";
+      }
+    }
+
+    startBtn.addEventListener('click', ()=>{
+      overlay.style.display = "none";
+      try{
+        player.unMute();
+        player.setVolume(90);
+        player.playVideo();
+      }catch(e){}
+    });
+  </script>
+</body>
+</html>
